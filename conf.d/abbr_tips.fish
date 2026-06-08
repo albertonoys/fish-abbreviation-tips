@@ -98,18 +98,18 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     else if string match -q -- "alias $cmd *" (alias)
         return
     else if test (type -t "$command[1]") = function
-        and count $ABBR_TIPS_ALIAS_BLACKLIST >/dev/null
+        and test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
         and contains "$command[1]" $ABBR_TIPS_ALIAS_BLACKLIST
         return
     else if test (type -t "$command[1]") = function
-        and count $ABBR_TIPS_ALIAS_BLACKLIST >/dev/null
+        and test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
         and set -l alias_key "a__$command[1]"
         and set -l alias_index (contains -i -- "$alias_key" $__ABBR_TIPS_KEYS)
         and test -n "$alias_index"
         and contains "$__ABBR_TIPS_VALUES[$alias_index]" $ABBR_TIPS_ALIAS_BLACKLIST
         return
     else if test (type -t "$command[1]") = function
-        and count $ABBR_TIPS_ALIAS_WHITELIST >/dev/null
+        and test (count $ABBR_TIPS_ALIAS_WHITELIST) -gt 0
         and not contains "$command[1]" $ABBR_TIPS_ALIAS_WHITELIST
         return
     end

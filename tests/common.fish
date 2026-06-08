@@ -31,6 +31,7 @@ function clear_test_var
     set -g __ABBR_TIPS_KEYS
     set -g __ABBR_TIPS_VALUES
     set -e ABBR_TIPS_ALIAS_BLACKLIST
+    set -e ABBR_TIPS_ALIAS_WHITELIST
     abbr -e __abbr_test
     abbr -e __abbr_test_one
     abbr -e __abbr_test_two

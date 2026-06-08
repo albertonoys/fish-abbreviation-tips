@@ -48,4 +48,20 @@ setup
   echo (__abbr_tips 'grep -q')
 ) = ""
 
+@test "empty blacklist does not prevent tips" (
+  clear_test_var
+  set -U ABBR_TIPS_ALIAS_BLACKLIST
+  alias __abbr_test_alias "grep -q"
+  __abbr_tips 'alias __abbr_test_alias "grep -q"'
+  echo (__abbr_tips 'grep -q')
+) = "__abbr_test_alias => grep -q"
+
+@test "empty whitelist does not prevent tips" (
+  clear_test_var
+  set -U ABBR_TIPS_ALIAS_WHITELIST
+  alias __abbr_test_alias "grep -q"
+  __abbr_tips 'alias __abbr_test_alias "grep -q"'
+  echo (__abbr_tips 'grep -q')
+) = "__abbr_test_alias => grep -q"
+
 teardown
