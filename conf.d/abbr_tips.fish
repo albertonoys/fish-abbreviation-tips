@@ -65,7 +65,7 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
 
         set alias_value (trim_value "$alias_value")
 
-        if set -l abb (contains -i -- "$argv[3..-1]" $__ABBR_TIPS_KEYS)
+        if set -l abb (contains -i -- "$alias_key" $__ABBR_TIPS_KEYS)
             set __ABBR_TIPS_KEYS[$abb] $alias_key
             set __ABBR_TIPS_VALUES[$abb] $alias_value
         else
@@ -100,16 +100,13 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     else if test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
         and contains "$command[1]" $ABBR_TIPS_ALIAS_BLACKLIST
         return
-    else if test (type -t "$command[1]") = function
-        and test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
-        and contains "$command[1]" $ABBR_TIPS_ALIAS_BLACKLIST
+    else if test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
+        and contains -- "$cmd" $ABBR_TIPS_ALIAS_BLACKLIST
         return
-    else if test (type -t "$command[1]") = function
-        and test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
-        and set -l alias_key "a__$command[1]"
-        and set -l alias_index (contains -i -- "$alias_key" $__ABBR_TIPS_KEYS)
-        and test -n "$alias_index"
-        and contains "$__ABBR_TIPS_VALUES[$alias_index]" $ABBR_TIPS_ALIAS_BLACKLIST
+    else if test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
+        and set -l alias_index (contains -i -- "$cmd" $__ABBR_TIPS_VALUES)
+        and string match -q "a__*" -- "$__ABBR_TIPS_KEYS[$alias_index]"
+        and contains -- (string sub -s 4 -- "$__ABBR_TIPS_KEYS[$alias_index]") $ABBR_TIPS_ALIAS_BLACKLIST
         return
     else if test (type -t "$command[1]") = function
         and test (count $ABBR_TIPS_ALIAS_WHITELIST) -gt 0

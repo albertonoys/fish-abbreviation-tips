@@ -1,8 +1,8 @@
 function __abbr_tips_init -d "Initialize abbreviations variables for fish-abbr-tips"
     set -e __ABBR_TIPS_KEYS
     set -e __ABBR_TIPS_VALUES
-    set -Ux __ABBR_TIPS_KEYS
-    set -Ux __ABBR_TIPS_VALUES
+    set -U __ABBR_TIPS_KEYS
+    set -U __ABBR_TIPS_VALUES
 
     set -l i 1
     set -l abb (string replace -r '.*-- ' '' -- (abbr -s))
