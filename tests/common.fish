@@ -20,6 +20,9 @@ function teardown
     set __ABBR_TIPS_KEYS $tmp_keys
     set __ABBR_TIPS_VALUES $tmp_values
     set ABBR_TIPS_PROMPT "$tmp_tips_prompt"
+    if functions -q __abbr_test_alias
+        functions --erase __abbr_test_alias
+    end
 end
 
 function clear_test_var
@@ -27,7 +30,11 @@ function clear_test_var
     # of each unit test from affecting each other
     set -g __ABBR_TIPS_KEYS
     set -g __ABBR_TIPS_VALUES
+    set -e ABBR_TIPS_ALIAS_BLACKLIST
     abbr -e __abbr_test
     abbr -e __abbr_test_one
     abbr -e __abbr_test_two
+    if functions -q __abbr_test_alias
+        functions --erase __abbr_test_alias
+    end
 end

@@ -35,6 +35,7 @@ To avoid spamming your `config.fish`, you can set environment variables using `s
 ```fish
 ABBR_TIPS_PROMPT "\n💡 \e[1m{{ .abbr }}\e[0m => {{ .cmd }}"
 ABBR_TIPS_ALIAS_WHITELIST # Not set
+ABBR_TIPS_ALIAS_BLACKLIST # Not set
 
 ABBR_TIPS_REGEXES '(^(\w+\s+)+(-{1,2})\w+)(\s\S+)' '(^( ?\w+){3}).*' '(^( ?\w+){2}).*' '(^( ?\w+){1}).*'
 # 1 : Test command with arguments removed
@@ -66,6 +67,28 @@ By default, if the command is a user-defined function (alias), the plugin won't 
 But, in some cases, you may write aliases that wrap existing commands without altering their actual execution (e.g., add some hooks before/after the command execution). In this special case, you may also have abbreviations using these aliases, so you don't want to ignore them.
 
 To do that, add these aliases to the environment variable.
+
+### Alias blacklist
+
+`ABBR_TIPS_ALIAS_BLACKLIST`
+
+If you want to prevent specific aliases from showing tips, add them to the blacklist. This takes precedence over the whitelist.
+
+You can blacklist by either the alias name or the expanded command (or both).
+
+For example, to prevent tips for the `ll` and `la` aliases:
+
+```fish
+set -U ABBR_TIPS_ALIAS_BLACKLIST ll la
+```
+
+Or if you have `alias j just`, you can blacklist either:
+
+```fish
+set -U ABBR_TIPS_ALIAS_BLACKLIST j      # Blacklist by alias name
+set -U ABBR_TIPS_ALIAS_BLACKLIST just    # Blacklist by expanded command
+set -U ABBR_TIPS_ALIAS_BLACKLIST j just # Blacklist both
+```
 
 ### Regexes
 

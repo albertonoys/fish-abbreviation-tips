@@ -32,4 +32,20 @@ setup
   echo (__abbr_tips 'grep -q')
 ) = "abbr_test_alias_two => grep -q"
 
+@test "alias blacklist prevents tip" (
+  clear_test_var
+  set -U ABBR_TIPS_ALIAS_BLACKLIST __abbr_test_alias
+  alias __abbr_test_alias "grep -q"
+  __abbr_tips 'alias __abbr_test_alias "grep -q"'
+  echo (__abbr_tips 'grep -q')
+) = ""
+
+@test "alias blacklist by expanded command prevents tip" (
+  clear_test_var
+  set -U ABBR_TIPS_ALIAS_BLACKLIST "grep -q"
+  alias __abbr_test_alias "grep -q"
+  __abbr_tips 'alias __abbr_test_alias "grep -q"'
+  echo (__abbr_tips 'grep -q')
+) = ""
+
 teardown
