@@ -64,9 +64,9 @@ setup
   echo (__abbr_tips 'grep -q')
 ) = "__abbr_test_alias => grep -q"
 
-@test "blacklist expanded command prevents tip when typed directly" (
+@test "blacklist command prevents tip when typed directly" (
   clear_test_var
-  set -U ABR_TIPS_ALIAS_BLACKLIST "grep -q"
+  set -U ABR_TIPS_ALIAS_BLACKLIST "grep"
   alias __abbr_test_alias "grep -q"
   __abbr_tips 'alias __abbr_test_alias "grep -q"'
   echo (__abbr_tips 'grep -q')

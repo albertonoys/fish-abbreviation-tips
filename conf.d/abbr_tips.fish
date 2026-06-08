@@ -98,7 +98,7 @@ function __abbr_tips --on-event fish_postexec -d "Abbreviation reminder for the 
     else if string match -q -- "alias $cmd *" (alias)
         return
     else if test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
-        and contains "$cmd" $ABBR_TIPS_ALIAS_BLACKLIST
+        and contains "$command[1]" $ABBR_TIPS_ALIAS_BLACKLIST
         return
     else if test (type -t "$command[1]") = function
         and test (count $ABBR_TIPS_ALIAS_BLACKLIST) -gt 0
